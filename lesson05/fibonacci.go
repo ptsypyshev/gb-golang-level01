@@ -13,20 +13,14 @@ func fibonacci(n int, fibMap map[int]int) int {
 		fibMap[1] = 1
 	}
 
-	a, existA := fibMap[n-2]
-	b, existB := fibMap[n-1]
+	res, isExist := fibMap[n]
 
-	if !existB {
-		b = fibonacci(n-1, fibMap)
-		fibMap[n-1] = b
+	if !isExist {
+		res = fibonacci(n-2, fibMap) + fibonacci(n-1, fibMap)
+		fibMap[n] = res
 	}
 
-	if !existA {
-		a = fibonacci(n-2, fibMap)
-		fibMap[n-2] = a
-	}
-
-	return a + b
+	return res
 }
 
 func main() {
