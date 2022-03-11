@@ -3,10 +3,6 @@ package main
 import "fmt"
 
 func fibonacci(n int, fibMap map[int]int) int {
-	if n == 0 || n == 1 {
-		return n
-	}
-
 	if fibMap == nil {
 		fibMap = make(map[int]int, n)
 		fibMap[0] = 0
