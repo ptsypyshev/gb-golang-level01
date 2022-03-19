@@ -4,6 +4,12 @@ import (
 	"fmt"
 )
 
+const (
+	addFirst  = "addFirst"
+	addMiddle = "addMiddle"
+	addLast   = "addLast"
+)
+
 type Node struct {
 	val  interface{}
 	next *Node
@@ -27,15 +33,15 @@ func (list *SingleList) adder(newVal interface{}, operation string, n int) {
 	switch {
 	case list.isEmpty():
 		list.head = node
-	case operation == "addFirst":
+	case operation == addFirst:
 		node.next, list.head = list.head, node
-	case operation == "addLast":
+	case operation == addLast:
 		step := list.head
 		for step.next != nil {
 			step = step.next
 		}
 		step.next = node
-	case operation == "addMiddle":
+	case operation == addMiddle:
 		step := list.head
 		for i := 0; i < n; i++ {
 			step = step.next
@@ -46,11 +52,11 @@ func (list *SingleList) adder(newVal interface{}, operation string, n int) {
 }
 
 func (list *SingleList) addFirst(newVal interface{}) {
-	list.adder(newVal, "addFirst", 0)
+	list.adder(newVal, addFirst, 0)
 }
 
 func (list *SingleList) addLast(newVal interface{}) {
-	list.adder(newVal, "addLast", 0)
+	list.adder(newVal, addLast, 0)
 }
 
 func (list *SingleList) addMiddle(newVal interface{}, n int) error {
@@ -60,7 +66,7 @@ func (list *SingleList) addMiddle(newVal interface{}, n int) error {
 	if n > list.length {
 		return fmt.Errorf("you cannot insert %v after %d because original list is too small", newVal, n)
 	}
-	list.adder(newVal, "addMiddle", n)
+	list.adder(newVal, addMiddle, n)
 	return nil
 }
 
