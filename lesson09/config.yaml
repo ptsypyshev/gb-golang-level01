@@ -1,0 +1,7 @@
+port: 8084
+db_url: "postgres://db-user:db-password@petstore-db:5432/petstore?sslmode=enable"
+jaeger_url: "http://jaeger:16684"
+sentry_url: "http://sentry:9004"
+kafka_broker: "kafka:9094"
+some_app_id": 4
+some_app_key: "Idgz1PE3zO9iNc0E3oeH3CHDPX9MzZe34"
