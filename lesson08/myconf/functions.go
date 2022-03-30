@@ -17,41 +17,28 @@ func GetFromEnvs() map[string]string {
 }
 
 func GetFromFlags() map[string]string {
+	var port, dbUrlFlag, jaegerUrlFlag, sentryUrlFlag, kafkaBroker, someAppId, someAppKey string
 	param := make(map[string]string)
-	port := flag.String("port", "8080", "Which port should application listen")
-	//port := flag.Int("port", 8080, "Which port should application listen")
-	dbUrlFlag := flag.String("db_url", "", "Specify Database URL (example, "+
+
+	flag.StringVar(&port, "port", "8080", "Which port should application listen")
+	flag.StringVar(&dbUrlFlag, "db_url", "", "Specify Database URL (example, "+
 		"postgres://db-user:db-password@petstore-db:5432/petstore?sslmode=disable)")
-	jaegerUrlFlag := flag.String("jaeger_url", "", "Specify Jaeger URL (example, "+
+	flag.StringVar(&jaegerUrlFlag, "jaeger_url", "", "Specify Jaeger URL (example, "+
 		"http://jaeger:16686)")
-	sentryUrlFlag := flag.String("sentry_url", "", "Specify Sentry URL (example, "+
+	flag.StringVar(&sentryUrlFlag, "sentry_url", "", "Specify Sentry URL (example, "+
 		"http://sentry:9000)")
-	kafkaBroker := flag.String("kafka_broker", "", "Specify Kafka URL (example, "+
+	flag.StringVar(&kafkaBroker, "kafka_broker", "", "Specify Kafka URL (example, "+
 		"kafka:9092)")
-	someAppId := flag.String("some_app_id", "0", "Specify Application ID")
-	//someAppId := flag.Int("some_app_id", 0, "Specify Application ID")
-	someAppKey := flag.String("some_app_key", "", "Specify Application Key (example, "+
+	flag.StringVar(&someAppId, "some_app_id", "0", "Specify Application ID")
+	flag.StringVar(&someAppKey, "some_app_key", "", "Specify Application Key (example, "+
 		"Idgz1PE3zO9iNc0E3oeH3CHDPX9MzZe3)")
+
 	flag.Parse()
 
-	for _, v := range Parameters {
-		switch v {
-		case "port":
-			param[v] = *port
-		case "db_url":
-			param[v] = *dbUrlFlag
-		case "jaeger_url":
-			param[v] = *jaegerUrlFlag
-		case "sentry_url":
-			param[v] = *sentryUrlFlag
-		case "kafka_broker":
-			param[v] = *kafkaBroker
-		case "some_app_id":
-			param[v] = *someAppId
-		case "some_app_key":
-			param[v] = *someAppKey
-		}
-	}
+	flag.Visit(func(f *flag.Flag) {
+		param[f.Name] = f.Value.String()
+	})
+
 	return param
 }
 
