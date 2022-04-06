@@ -41,25 +41,20 @@ var resultMap = map[int]int{
 }
 
 func TestFibWithCache(t *testing.T) {
-	for i := 0; i <= 30; i++ {
+	for i := 0; i < len(resultMap); i++ {
 		assert.Equal(t, resultMap[i], FibWithCache(i))
 	}
 }
 
 func TestFibWithoutCache(t *testing.T) {
-	for i := 0; i <= 30; i++ {
+	for i := 0; i < len(resultMap); i++ {
 		assert.Equal(t, resultMap[i], FibWithoutCache(i))
 	}
 }
 
-func BenchmarkFibWithCache(b *testing.B) {
+func BenchmarkFib(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		FibWithCache(30)
-	}
-}
-
-func BenchmarkFibWithoutCache(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+		//FibWithCache(30)
 		FibWithoutCache(30)
 	}
 }
